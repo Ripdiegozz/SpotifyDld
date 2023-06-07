@@ -1,37 +1,52 @@
 import { useState } from 'react'
+import SkeletonLoader from './components/SkeletonLoader'
 
 function App() {
   const [songLink, setSongLink] = useState('')
-  const [song, setSong] = useState({
-    title: 'Sample Song',
-    artist: 'Sample Artist',
-    album: 'Sample Album',
-    cover: 'https://cdn.dribbble.com/users/12084/screenshots/1867046/vinyl_mockup_soundsortium_1x.jpg',
-    link: 'https://open.spotify.com/track/2TpxZ7JUBn3uw46aR7qd6V?si=2e8c7b0e0b5c4b9b'})
+  const [squareState, setsquareState] = useState('mt-10 hidden')
+  const [buttonStyle, setButtonStyle] = useState("btn btn-primary cursor-not-allowed rounded-lg max-w-md mt-6 mx-auto w-full")
+  const [song, setSong] = useState({})
 
   const changeSong = (e) => {
     setSongLink(e.target.value)
   }
 
   const searchHandler = async () => {
+
+    setSong({
+      title: undefined,
+      artist: undefined,
+      album: undefined,
+      cover: 'https://i.ebayimg.com/images/g/gdEAAOSwfwxdnvRv/s-l640.jpg',
+      link: '#'
+    })
+
+    setButtonStyle("btn btn-primary cursor-not-allowed rounded-lg max-w-md mt-6 mx-auto w-full")
+
     const url = songLink.split('/')[4]
-    console.log(url)
+
     const response = await fetch(`https://spotify-downloader1.p.rapidapi.com/download/${url}`, {
       "method": "GET",
       headers: {
-        'X-RapidAPI-Key': '12f8f839b8msh1f4c59a623beb1ap1abc1bjsn03fc37079636',
+        'X-RapidAPI-Key': '0dea8ad591msh1733f68c7d8b50bp14555ajsn3f017697801b',
         'X-RapidAPI-Host': 'spotify-downloader1.p.rapidapi.com'
       }
     })
     const data = await response.json()
 
-    setSong({
-      title: data.metadata.title,
-      artist: data.metadata.artists,
-      album: data.metadata.album,
-      cover: data.metadata.cover,
-      link: data.link
-    })
+    setTimeout(() => {
+      setSong({
+          title: data.metadata.title,
+          artist: data.metadata.artists,
+          album: data.metadata.album,
+          cover: data.metadata.cover,
+          link: data.link
+        })
+
+      setButtonStyle("btn btn-primary rounded-lg max-w-md mt-6 mx-auto w-full")
+    }, 8000)
+
+    setsquareState('mt-10')
   }
 
   return (
@@ -46,13 +61,13 @@ function App() {
         </form>
       </div>
       
-      <div className='mt-10'>
+      <div className={squareState}>
         <div className="flex flex-col justify-center items-center">
           <img src={song.cover} alt={song.title} className="w-40 h-40 rounded-md"/>
-          <h2 className="text-2xl font-bold pt-2">{song.title}</h2>
-          <h3 className="text-xl font-bold pt-2">{song.album}</h3>
-          <h4 className="text-xl font-bold pt-2">{song.artist}</h4> 
-          <a href={song.link} target="_blank" rel="noreferrer" className="btn btn-primary rounded-lg max-w-md mt-6 mx-auto w-full">Download</a>
+          <h2 className="text-2xl font-bold pt-2">{song.title || <SkeletonLoader />}</h2>
+          <h3 className="text-xl font-bold pt-2">{song.album || <SkeletonLoader />}</h3>
+          <h4 className="text-xl font-bold pt-2">{song.artist || <SkeletonLoader />}</h4> 
+          <a href={song.link} target="_blank" rel="noreferrer" className={buttonStyle}>Download</a>
         </div>
       </div>
 
