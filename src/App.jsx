@@ -17,7 +17,7 @@ function App() {
       title: undefined,
       artist: undefined,
       album: undefined,
-      cover: 'https://i.ebayimg.com/images/g/gdEAAOSwfwxdnvRv/s-l640.jpg',
+      cover: 'https://images.pexels.com/photos/2746823/pexels-photo-2746823.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       link: '#'
     })
 
