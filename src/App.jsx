@@ -19,7 +19,7 @@ function App() {
     const response = await fetch(`https://spotify-downloader1.p.rapidapi.com/download/${url}`, {
       "method": "GET",
       headers: {
-        'X-RapidAPI-Key': '0dea8ad591msh1733f68c7d8b50bp14555ajsn3f017697801b',
+        'X-RapidAPI-Key': '12f8f839b8msh1f4c59a623beb1ap1abc1bjsn03fc37079636',
         'X-RapidAPI-Host': 'spotify-downloader1.p.rapidapi.com'
       }
     })
@@ -27,13 +27,11 @@ function App() {
 
     setSong({
       title: data.metadata.title,
-      artist: data.metadata.title,
+      artist: data.metadata.artists,
       album: data.metadata.album,
       cover: data.metadata.cover,
       link: data.link
     })
-
-    console.log(song)
   }
 
   return (
@@ -46,7 +44,7 @@ function App() {
           <input type="text" id='song-field' name="song-field" required className="w-full h-11 rounded-lg p-3 mt-3" onChange={changeSong}/>
           <button type="button" className="btn btn-primary rounded-lg max-w-md mt-6 mx-auto w-full" onClick={() => searchHandler()}>Search Song</button>
         </form>
-      </div>  
+      </div>
       
       <div className='mt-10'>
         <div className="flex flex-col justify-center items-center">
