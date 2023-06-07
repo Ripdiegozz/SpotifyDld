@@ -57,7 +57,7 @@ function App() {
       </div>
 
       <footer className='p-10'>
-        <p className="text-center text-gray-500 text-sm mt-10">Made with <i className="fas fa-heart text-red-500"></i> by <a href="" className="text-blue-500">Diego Garcia</a></p>
+        <p className="text-center text-gray-500 text-sm mt-10">Made with <i className="fas fa-heart text-red-500"></i> by <a href="" className="text-blue-500">Diego Garcia y Santiago Diaz</a></p>
       </footer>
     </main>
   )
